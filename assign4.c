@@ -22,13 +22,12 @@ void Age(unsigned short birth_y)
 
 }
 
-
 void Name(char *first_n)
 {
     if (strlen(first_n) > 32)
      {
-         printf("Sorry your name cannot exceed 32 characters. Please try again.\n");
-         scanf("%s", first_n);
+        printf("Sorry your name cannot exceed 32 characters. Please try again.\n");
+        scanf("%s", first_n);
          
      }
 }
@@ -50,35 +49,35 @@ int main() {
     int i;
 
     
-        do
-        {   
-            printf("Enter 'n' to quit, or 'c' to continue adding players.\n");
-            scanf(" %c", &choice);
+    do
+    {   
+        printf("Enter 'n' to quit, or 'c' to continue adding players.\n");
+        scanf(" %c", &choice);
 
-            if (choice == 'n'){
-                printf("Thanks for joining the team!\n");
-                break;
+        if (choice == 'n'){
+            printf("Welcome to the team, we will contact you soon!\n");
+            break;
 
-            }
-            else if (choice == 'c'){
-                printf("What is the name of your city?\n");
-                scanf(" %[^\n]", city);
-                City(city);
-
-                printf("What is your first name?\n");
-                scanf("%s", first_n);
-                Name(first_n);
-
-                printf("What year were you born?\n");
-                scanf("%hu", &birth_y);
-                Age(birth_y);
-                i++;
-            }
-        } while (i < 10);
-
-        if (i == 10){
-            printf("You have entered the maxmium number of people that can be on a team.");
         }
+        else if (choice == 'c'){
+            printf("What is the name of your city?\n");
+            scanf(" %[^\n]", city);
+            City(city);
 
-    return 0;
+            printf("What is your first name?\n");
+            scanf("%s", first_n);
+            Name(first_n);
+
+            printf("What year were you born?\n");
+            scanf("%hu", &birth_y);
+            Age(birth_y);
+            i++;
+        }
+    } while (i < 10);
+
+    if (i == 10){
+        printf("You have entered the maxmium number of people that can be on a team.");
+    }
+
+return 0;
 }
