@@ -6,166 +6,882 @@
 #include <stdlib.h>
 #include <string.h>
 
-void ParentName(char *pfirst_n, char *plast_n) //parent first, and last name check
-{ 
-    strcat(pfirst_n, plast_n);
-    if(strlen(strcat(pfirst_n, plast_n)) >32)
-    {
-        printf("Sorry your parent/guardian name cannot exceed 32 characters. Please try again starting with the first name, then last name.\n");
-        scanf("%s", pfirst_n);
-        scanf("%s", plast_n);
-    }
+enum PHONETYPE {
+  home,
+  work,
+  cell
+}
+contact;
+enum RELATIONSHIP {
+  mother,
+  father,
+  grandmother,
+  grandfather,
+  other
+}
+guardian;
 
-} 
+void Age(unsigned short birth_y) {
+  unsigned short currYear = 2022;
+  unsigned short checkedYear;
+  checkedYear = (currYear - birth_y);
 
+  if (checkedYear < 9 || checkedYear > 12) {
+    printf("Sorry. You are not between the age of 9 and 12.\n\n");
+  } else {
+    printf("You are old enough to play!\n\n");
 
-void Age(unsigned short birth_y)
-{
-    unsigned short currYear = 2022;
-    unsigned short checkedYear;
-    checkedYear = (currYear - birth_y);
-
-    if(checkedYear < 9 || checkedYear > 12)
-    {
-        printf("Sorry. You are not between the age of 9 and 12.\n\n");
-    }
-    else
-    {
-        printf("You are old enough to play! Welcome to the team!\n\n");
-
-    }
+  }
 
 }
-
-void Name(char *first_n, char *last_n)
-{
-    strcat(first_n, last_n);
-   
-    if (strlen(strcat(first_n, last_n)) > 32)
-     {
-        printf("Sorry your name cannot exceed 32 characters. Please try again starting with your first name.\n");
-        scanf("%s", first_n);
-        scanf("%s", last_n);
-         
-     }
-}
-
-void City(char *city, char *street)
-{
-    if (strlen(strcat(city, street)) > 64)
-    {
-        printf("Sorry city and street address cannot exceed 64 characters.\n");
-        printf("Please try again. Starting with your city then your address.\n\n");
-        scanf(" %[^\n]", city);
-        scanf(" %[^\n]", street);
-    }
-}
-
 
 int main() {
-    char plFirst[32], plLast[32], parent_first[32], parent_last[32];
-    char first_n[32], choice;
-    unsigned short birth_y;
-    char city[64], street[64], phone_num[32];
-    int i;
+  //represent 10, and their players first name
+  char p0f[32], p1f[32], p2f[32], p3f[32], p4f[32], p5f[32], p6f[32], p7f[32], p8f[32], p9f[32];
+  //10 players last name
+  char p0l[32], p1l[32], p2l[32], p3l[32], p4l[32], p5l[32], p6l[32], p7l[32], p8l[32], p9l[32];
+  //10 players street number
+  char p0snum[64], p1snum[64], p2snum[64], p3snum[64], p4snum[64], p5snum[64], p6snum[64], p7snum[64], p8snum[64], p9snum[64];
+  //10 players street name
+  char p0sname[64], p1sname[64], p2sname[64], p3sname[64], p4sname[64], p5sname[64], p6sname[64], p7sname[64], p8sname[64], p9sname[64];
+  //10 players city
+  char p0c[64], p1c[64], p2c[64], p3c[64], p4c[64], p5c[64], p6c[64], p7c[64], p8c[64], p9c[64];
+  //10 playesr year of birth
+  unsigned short p0y, p1y, p2y, p3y, p4y, p5y, p6y, p7y, p8y, p9y;
+  //10 player guardian first name
+  char p0gf[64], p1gf[64], p2gf[64], p3gf[64], p4gf[64], p5gf[64], p6gf[64], p7gf[64], p8gf[64], p9gf[64];
+  //10 player guardian last name
+  char p0gl[64], p1gl[64], p2gl[64], p3gl[64], p4gl[64], p5gl[64], p6gl[64], p7gl[64], p8gl[64], p9gl[64];
+  //10 player guardian phone num
+  char p0gphone[32], p1gphone[32], p2gphone[32], p3gphone[32], p4gphone[32], p5gphone[32], p6gphone[32], p7gphone[32], p8gphone[32], p9gphone[32];
+  int i = 0; //using for iterations
+  int choice, choice1, choice2, choice3, choice4, choice5, choice6, choice7, choice8, choice9, choice10; //handles user choice
 
-    enum PhoneType {home, work, cell};
-    enum PhoneType contact;
+  do //outer DO loop
+  {
+    /* printf("\nEnter '1' to add players to the roster, or enter '2' to quit.\n");
+        scanf(" %d", & choice);
+        if (choice == 2) {
+            printf("You have quit the program.\n");
+            break;
+        } */
 
-    enum Relationship {mother, father, grandmother, grandfather, other} guardian;
+    do {
+      switch (i) {
 
-   
-    do
-    {  
-        printf("\nEnter 'n' to quit, or 'c' to add players.\n");
-        scanf(" %c", &choice);
+      case 0: //player 0
+        printf("--- Little League Player Roster ---\n\n");
+        printf("What is your first name?\n"); //first name
+        scanf("%s", p0f);
 
-        if (choice == 'n'){
-            printf("You have quit the program.\n\n");
+        printf("What is your last name?\n"); //last name
+        scanf("%s", p0l);
+
+        printf("What is your parent/guardians first name?\n"); //guardian first name
+        scanf("%s", p0gf);
+
+        printf("What is your parent/guardians last name?\n"); //guardian last name
+        scanf("%s", p0gl);
+
+        printf("Press the digit that corresponds with your parent/guardian:\n\n");
+        printf("Mother: 0\nFather: 1\nGrandmother: 2\nGrandfather: 3\nOther: 4\n\n");
+        scanf("%u", & guardian);
+
+        switch (guardian) {
+        case 0:
+          printf("Mother was selected.\n\n");
+          break;
+
+        case 1:
+          printf("Father was selected.\n\n");
+          break;
+
+        case 2:
+          printf("Grandmother was selected.\n\n");
+          break;
+
+        case 3:
+          printf("Grandfather was selected.\n\n");
+          break;
+
+        case 4:
+          printf("Other was selected.\n\n");
+          break;
+        }
+
+        printf("What is parent/guardian phone number? ('5555555555')\n"); //guardian phone num
+        scanf("%s", p0gphone);
+
+        printf("\nPress the digit that correpsonds with your parent/guardian phone number type.\n");
+        printf("Home: 0\nWork: 1\nCell: 2\n\n");
+        scanf("%u", & contact);
+        switch (contact) {
+        case 0:
+          printf("Home was selected.\n\n");
+          break;
+
+        case 1:
+          printf("Work was selected.\n\n");
+          break;
+
+        case 2:
+          printf("Cell was selected.\n\n");
+          break;
+        }
+
+        printf("What is the name of your city?\n"); //city
+        scanf(" %[^\n]", p0c);
+
+        printf("What is your street number?\n"); //street num
+        scanf(" %[^\n]", p0snum);
+
+        printf("What is your street name?\n"); //street name
+        scanf(" %[^\n]", p0sname);
+
+        printf("What year were you born?\n"); //year
+        scanf("%hu", & p0y);
+        Age(p0y);
+        ++i;
+
+      case 1:
+        printf("Continue adding players? Press '1'. To quit press '2'");
+        scanf(" %d", & choice1);
+        if (choice1 == 2) {
+          i += 10;
+          printf("You have quit the program.\n");
+          break;
+        } else if (choice1 == 1) { //chaging if to while
+          printf("What is your first name?\n"); //first name
+          scanf("%s", p1f);
+
+          printf("What is your last name?\n"); //last name
+          scanf("%s", p1l);
+
+          printf("What is your parent/guardians first name?\n"); //guardian first name
+          scanf("%s", p1gf);
+
+          printf("What is your parent/guardians last name?\n"); //guardian last name
+          scanf("%s", p1gl);
+
+          printf("Press the digit that corresponds with your parent/guardian:\n\n");
+          printf("Mother: 0\nFather: 1\nGrandmother: 2\nGrandfather: 3\nOther: 4\n\n");
+          scanf("%u", & guardian);
+
+          switch (guardian) {
+          case 0:
+            printf("Mother was selected.\n\n");
             break;
 
-        }
-        else if (choice == 'c'){
-            printf("What is the name of your city?\n");
-            scanf(" %[^\n]", city);
-           
-            printf("What is your street address?\n");
-            scanf(" %[^\n]", street);
-            City(city, street);
+          case 1:
+            printf("Father was selected.\n\n");
+            break;
 
-            printf("What is your parent/guardians first name?\n");
-            scanf("%s", parent_first);
-            printf("What is your parent/guardians last name?\n");
-            scanf("%s", parent_last);
-            ParentName(parent_first, parent_last);
+          case 2:
+            printf("Grandmother was selected.\n\n");
+            break;
+
+          case 3:
+            printf("Grandfather was selected.\n\n");
+            break;
+
+          case 4:
+            printf("Other was selected.\n\n");
+            break;
+          }
+
+          printf("What is parent/guardian phone number? ('5555555555')\n"); //guardian phone num
+          scanf("%s", p1gphone);
+
+          printf("\nPress the digit that correpsonds with your parent/guardian phone number type.\n");
+          printf("Home: 0\nWork: 1\nCell: 2\n\n");
+          scanf("%u", & contact);
+          switch (contact) {
+          case 0:
+            printf("Home was selected.\n\n");
+            break;
+
+          case 1:
+            printf("Work was selected.\n\n");
+            break;
+
+          case 2:
+            printf("Cell was selected.\n\n");
+            break;
+          }
+
+          printf("What is the name of your city?\n"); //city
+          scanf(" %[^\n]", p1c);
+
+          printf("What is your street number?\n"); //street num
+          scanf(" %[^\n]", p1snum);
+
+          printf("What is your street name?\n"); //street name
+          scanf(" %[^\n]", p1sname);
+
+          printf("What year were you born?\n"); //year
+          scanf("%hu", & p1y);
+          Age(p1y);
+          ++i;
+        }
+        case 2:
+          printf("Continue adding players? Press '1'. To quit press '2'");
+          scanf(" %d", & choice2);
+          if (choice2 == 2) {
+            i += 10;
+            printf("You have quit the program.\n");
+            break;
+          } else if (choice2 == 1) {
+            printf("What is your first name?\n"); //first name
+            scanf("%s", p2f);
+
+            printf("What is your last name?\n"); //last name
+            scanf("%s", p2l);
+
+            printf("What is your parent/guardians first name?\n"); //guardian first name
+            scanf("%s", p2gf);
+
+            printf("What is your parent/guardians last name?\n"); //guardian last name
+            scanf("%s", p2gl);
 
             printf("Press the digit that corresponds with your parent/guardian:\n\n");
             printf("Mother: 0\nFather: 1\nGrandmother: 2\nGrandfather: 3\nOther: 4\n\n");
-            scanf("%u", &guardian);
-    
-            switch(guardian){
-                case 0:
-                printf("Mother was selected.\n");
-                break;
+            scanf("%u", & guardian);
 
-                case 1:
-                printf("Father was selected.\n");
-                break;
+            switch (guardian) {
+            case 0:
+              printf("Mother was selected.\n\n");
+              break;
 
-                case 2:
-                printf("Grandmother was selected.\n");
-                break;
-        
-                case 3:
-                printf("Grandfather was selected.\n");
-                break;
+            case 1:
+              printf("Father was selected.\n\n");
+              break;
 
-                case 4:
-                printf("Other was selected.\n");
-                break;
+            case 2:
+              printf("Grandmother was selected.\n\n");
+              break;
+
+            case 3:
+              printf("Grandfather was selected.\n\n");
+              break;
+
+            case 4:
+              printf("Other was selected.\n\n");
+              break;
             }
 
-            printf("What is parent/guardian phone number? ('555-555-5555')\n");
-            scanf("%s", phone_num);
+            printf("What is parent/guardian phone number? ('5555555555')\n"); //guardian phone num
+            scanf("%s", p2gphone);
 
             printf("\nPress the digit that correpsonds with your parent/guardian phone number type.\n");
             printf("Home: 0\nWork: 1\nCell: 2\n\n");
-            scanf("%u", &contact);
+            scanf("%u", & contact);
+            switch (contact) {
+            case 0:
+              printf("Home was selected.\n\n");
+              break;
 
-            switch(contact){
-                case 0:
-                printf("Home was selected.\n");
+            case 1:
+              printf("Work was selected.\n\n");
+              break;
+
+            case 2:
+              printf("Cell was selected.\n\n");
+              break;
+            }
+
+            printf("What is the name of your city?\n"); //city
+            scanf(" %[^\n]", p2c);
+
+            printf("What is your street number?\n"); //street num
+            scanf(" %[^\n]", p2snum);
+
+            printf("What is your street name?\n"); //street name
+            scanf(" %[^\n]", p2sname);
+
+            printf("What year were you born?\n"); //year
+            scanf("%hu", & p2y);
+            Age(p2y);
+            ++i;
+          }
+
+          case 3:
+            printf("Continue adding players? Press '1'. To quit press '2'");
+            scanf(" %d", & choice3);
+            if (choice3 == 2) {
+              i += 10;
+              printf("You have quit the program.\n");
+              break;
+            } else if (choice3 == 1) {
+              printf("What is your first name?\n"); //first name
+              scanf("%s", p3f);
+
+              printf("What is your last name?\n"); //last name
+              scanf("%s", p3l);
+
+              printf("What is your parent/guardians first name?\n"); //guardian first name
+              scanf("%s", p3gf);
+
+              printf("What is your parent/guardians last name?\n"); //guardian last name
+              scanf("%s", p3gl);
+
+              printf("Press the digit that corresponds with your parent/guardian:\n\n");
+              printf("Mother: 0\nFather: 1\nGrandmother: 2\nGrandfather: 3\nOther: 4\n\n");
+              scanf("%u", & guardian);
+
+              switch (guardian) {
+              case 0:
+                printf("Mother was selected.\n\n");
                 break;
+
+              case 1:
+                printf("Father was selected.\n\n");
+                break;
+
+              case 2:
+                printf("Grandmother was selected.\n\n");
+                break;
+
+              case 3:
+                printf("Grandfather was selected.\n\n");
+                break;
+
+              case 4:
+                printf("Other was selected.\n\n");
+                break;
+              }
+
+              printf("What is parent/guardian phone number? ('5555555555')\n"); //guardian phone num
+              scanf("%s", p3gphone);
+
+              printf("\nPress the digit that correpsonds with your parent/guardian phone number type.\n");
+              printf("Home: 0\nWork: 1\nCell: 2\n\n");
+              scanf("%u", & contact);
+              switch (contact) {
+              case 0:
+                printf("Home was selected.\n\n");
+                break;
+
+              case 1:
+                printf("Work was selected.\n\n");
+                break;
+
+              case 2:
+                printf("Cell was selected.\n\n");
+                break;
+              }
+
+              printf("What is the name of your city?\n"); //city
+              scanf(" %[^\n]", p3c);
+
+              printf("What is your street number?\n"); //street num
+              scanf(" %[^\n]", p3snum);
+
+              printf("What is your street name?\n"); //street name
+              scanf(" %[^\n]", p3sname);
+
+              printf("What year were you born?\n"); //year
+              scanf("%hu", & p3y);
+              Age(p3y);
+              ++i;
+            }
+            case 4:
+              printf("Continue adding players? Press '1'. To quit pres '2'\n");
+              scanf(" %d", & choice4);
+              if (choice4 == 2) {
+                i += 10;
+                printf("You have quit the program.\n");
+                break;
+              } else if (choice4 == 1) {
+                printf("What is your first name?\n"); //first name
+                scanf("%s", p4f);
+
+                printf("What is your last name?\n"); //last name
+                scanf("%s", p4l);
+
+                printf("What is your parent/guardians first name?\n"); //guardian first name
+                scanf("%s", p4gf);
+
+                printf("What is your parent/guardians last name?\n"); //guardian last name
+                scanf("%s", p4gl);
+
+                printf("Press the digit that corresponds with your parent/guardian:\n\n");
+                printf("Mother: 0\nFather: 1\nGrandmother: 2\nGrandfather: 3\nOther: 4\n\n");
+                scanf("%u", & guardian);
+
+                switch (guardian) {
+                case 0:
+                  printf("Mother was selected.\n\n");
+                  break;
 
                 case 1:
-                printf("Work was selected.\n");
-                break;
+                  printf("Father was selected.\n\n");
+                  break;
 
                 case 2:
-                printf("Cell was selected.\n");
-                break;
+                  printf("Grandmother was selected.\n\n");
+                  break;
+
+                case 3:
+                  printf("Grandfather was selected.\n\n");
+                  break;
+
+                case 4:
+                  printf("Other was selected.\n\n");
+                  break;
                 }
 
-            printf("What is your first name?\n");
-            scanf("%s", plFirst);
-           
-            printf("What is your last name?\n");
-            scanf("%s", plLast);
+                printf("What is parent/guardian phone number? ('5555555555')\n"); //guardian phone num
+                scanf("%s", p4gphone);
 
-            Name(plFirst, plLast);
+                printf("\nPress the digit that correpsonds with your parent/guardian phone number type.\n");
+                printf("Home: 0\nWork: 1\nCell: 2\n\n");
+                scanf("%u", & contact);
+                switch (contact) {
+                case 0:
+                  printf("Home was selected.\n\n");
+                  break;
 
-            printf("What year were you born?\n");
-            scanf("%hu", &birth_y);
-            Age(birth_y);
-       
-   
-            i++;
-        }
-    } while (i < 10);
+                case 1:
+                  printf("Work was selected.\n\n");
+                  break;
 
-    if (i == 10){
-        printf("You have entered the maxmium number of people that can be on a team.");
-    }
+                case 2:
+                  printf("Cell was selected.\n\n");
+                  break;
+                }
 
-return 0;
+                printf("What is the name of your city?\n"); //city
+                scanf(" %[^\n]", p4c);
+
+                printf("What is your street number?\n"); //street num
+                scanf(" %[^\n]", p4snum);
+
+                printf("What is your street name?\n"); //street name
+                scanf(" %[^\n]", p4sname);
+
+                printf("What year were you born?\n"); //year
+                scanf("%hu", & p4y);
+                Age(p4y);
+                ++i;
+              }
+              case 5:
+                printf("Continue adding players? Press '1'. To quit press '2'\n");
+                scanf(" %d", & choice5);
+                if (choice5 == 2) {
+                  i += 10;
+                  printf("You have quit the program.\n");
+                  break;
+                } else if (choice5 == 1) {
+                  printf("What is your first name?\n"); //first name
+                  scanf("%s", p5f);
+
+                  printf("What is your last name?\n"); //last name
+                  scanf("%s", p5l);
+
+                  printf("What is your parent/guardians first name?\n"); //guardian first name
+                  scanf("%s", p5gf);
+
+                  printf("What is your parent/guardians last name?\n"); //guardian last name
+                  scanf("%s", p5gl);
+
+                  printf("Press the digit that corresponds with your parent/guardian:\n\n");
+                  printf("Mother: 0\nFather: 1\nGrandmother: 2\nGrandfather: 3\nOther: 4\n\n");
+                  scanf("%u", & guardian);
+
+                  switch (guardian) {
+                  case 0:
+                    printf("Mother was selected.\n\n");
+                    break;
+
+                  case 1:
+                    printf("Father was selected.\n\n");
+                    break;
+
+                  case 2:
+                    printf("Grandmother was selected.\n\n");
+                    break;
+
+                  case 3:
+                    printf("Grandfather was selected.\n\n");
+                    break;
+
+                  case 4:
+                    printf("Other was selected.\n\n");
+                    break;
+                  }
+
+                  printf("What is parent/guardian phone number? ('5555555555')\n"); //guardian phone num
+                  scanf("%s", p5gphone);
+
+                  printf("\nPress the digit that correpsonds with your parent/guardian phone number type.\n");
+                  printf("Home: 0\nWork: 1\nCell: 2\n\n");
+                  scanf("%u", & contact);
+                  switch (contact) {
+                  case 0:
+                    printf("Home was selected.\n\n");
+                    break;
+
+                  case 1:
+                    printf("Work was selected.\n\n");
+                    break;
+
+                  case 2:
+                    printf("Cell was selected.\n\n");
+                    break;
+                  }
+
+                  printf("What is the name of your city?\n"); //city
+                  scanf(" %[^\n]", p5c);
+
+                  printf("What is your street number?\n"); //street num
+                  scanf(" %[^\n]", p5snum);
+
+                  printf("What is your street name?\n"); //street name
+                  scanf(" %[^\n]", p5sname);
+
+                  printf("What year were you born?\n"); //year
+                  scanf("%hu", & p5y);
+                  Age(p5y);
+                  ++i;
+                }
+                case 6:
+                  printf("Continue adding players? Press '1'. To quit press '2'\n");
+                  scanf(" %d", & choice6);
+                  if (choice6 == 2) {
+                    i += 10;
+                    printf("You have quit the program.\n");
+                    break;
+                  } else if (choice6 == 1) {
+                    printf("What is your first name?\n"); //first name
+                    scanf("%s", p6f);
+
+                    printf("What is your last name?\n"); //last name
+                    scanf("%s", p6l);
+
+                    printf("What is your parent/guardians first name?\n"); //guardian first name
+                    scanf("%s", p6gf);
+
+                    printf("What is your parent/guardians last name?\n"); //guardian last name
+                    scanf("%s", p6gl);
+
+                    printf("Press the digit that corresponds with your parent/guardian:\n\n");
+                    printf("Mother: 0\nFather: 1\nGrandmother: 2\nGrandfather: 3\nOther: 4\n\n");
+                    scanf("%u", & guardian);
+
+                    switch (guardian) {
+                    case 0:
+                      printf("Mother was selected.\n\n");
+                      break;
+
+                    case 1:
+                      printf("Father was selected.\n\n");
+                      break;
+
+                    case 2:
+                      printf("Grandmother was selected.\n\n");
+                      break;
+
+                    case 3:
+                      printf("Grandfather was selected.\n\n");
+                      break;
+
+                    case 4:
+                      printf("Other was selected.\n\n");
+                      break;
+                    }
+
+                    printf("What is parent/guardian phone number? ('5555555555')\n"); //guardian phone num
+                    scanf("%s", p6gphone);
+
+                    printf("\nPress the digit that correpsonds with your parent/guardian phone number type.\n");
+                    printf("Home: 0\nWork: 1\nCell: 2\n\n");
+                    scanf("%u", & contact);
+                    switch (contact) {
+                    case 0:
+                      printf("Home was selected.\n\n");
+                      break;
+
+                    case 1:
+                      printf("Work was selected.\n\n");
+                      break;
+
+                    case 2:
+                      printf("Cell was selected.\n\n");
+                      break;
+                    }
+
+                    printf("What is the name of your city?\n"); //city
+                    scanf(" %[^\n]", p6c);
+
+                    printf("What is your street number?\n"); //street num
+                    scanf(" %[^\n]", p6snum);
+
+                    printf("What is your street name?\n"); //street name
+                    scanf(" %[^\n]", p6sname);
+
+                    printf("What year were you born?\n"); //year
+                    scanf("%hu", & p6y);
+                    Age(p6y);
+                    ++i;
+                  }
+                  case 7:
+                    printf("Continue adding players? Press '1'. To quit press '2'\n");
+                    scanf(" %d", & choice7);
+                    if (choice7 == 2) {
+                      i += 10;
+                      printf("You have quit the program.\n");
+                      break;
+                    } else if (choice7 == 1) {
+                      printf("What is your first name?\n"); //first name
+                      scanf("%s", p7f);
+
+                      printf("What is your last name?\n"); //last name
+                      scanf("%s", p7l);
+
+                      printf("What is your parent/guardians first name?\n"); //guardian first name
+                      scanf("%s", p7gf);
+
+                      printf("What is your parent/guardians last name?\n"); //guardian last name
+                      scanf("%s", p7gl);
+
+                      printf("Press the digit that corresponds with your parent/guardian:\n\n");
+                      printf("Mother: 0\nFather: 1\nGrandmother: 2\nGrandfather: 3\nOther: 4\n\n");
+                      scanf("%u", & guardian);
+
+                      switch (guardian) {
+                      case 0:
+                        printf("Mother was selected.\n\n");
+                        break;
+
+                      case 1:
+                        printf("Father was selected.\n\n");
+                        break;
+
+                      case 2:
+                        printf("Grandmother was selected.\n\n");
+                        break;
+
+                      case 3:
+                        printf("Grandfather was selected.\n\n");
+                        break;
+
+                      case 4:
+                        printf("Other was selected.\n\n");
+                        break;
+                      }
+
+                      printf("What is parent/guardian phone number? ('5555555555')\n"); //guardian phone num
+                      scanf("%s", p7gphone);
+
+                      printf("\nPress the digit that correpsonds with your parent/guardian phone number type.\n");
+                      printf("Home: 0\nWork: 1\nCell: 2\n\n");
+                      scanf("%u", & contact);
+                      switch (contact) {
+                      case 0:
+                        printf("Home was selected.\n\n");
+                        break;
+
+                      case 1:
+                        printf("Work was selected.\n\n");
+                        break;
+
+                      case 2:
+                        printf("Cell was selected.\n\n");
+                        break;
+                      }
+
+                      printf("What is the name of your city?\n"); //city
+                      scanf(" %[^\n]", p7c);
+
+                      printf("What is your street number?\n"); //street num
+                      scanf(" %[^\n]", p7snum);
+
+                      printf("What is your street name?\n"); //street name
+                      scanf(" %[^\n]", p7sname);
+
+                      printf("What year were you born?\n"); //year
+                      scanf("%hu", & p7y);
+                      Age(p7y);
+                      ++i;
+                    }
+                    case 8:
+                      printf("Continue adding players? Press '1'. To quit press '2'\n");
+                      scanf(" %d", & choice8);
+                      if (choice8 == 2) {
+                        i += 10;
+                        printf("You have quit the program.\n");
+                        break;
+                      } else if (choice8 == 1) {
+                        printf("What is your first name?\n"); //first name
+                        scanf("%s", p8f);
+
+                        printf("What is your last name?\n"); //last name
+                        scanf("%s", p8l);
+
+                        printf("What is your parent/guardians first name?\n"); //guardian first name
+                        scanf("%s", p8gf);
+
+                        printf("What is your parent/guardians last name?\n"); //guardian last name
+                        scanf("%s", p8gl);
+
+                        printf("Press the digit that corresponds with your parent/guardian:\n\n");
+                        printf("Mother: 0\nFather: 1\nGrandmother: 2\nGrandfather: 3\nOther: 4\n\n");
+                        scanf("%u", & guardian);
+
+                        switch (guardian) {
+                        case 0:
+                          printf("Mother was selected.\n\n");
+                          break;
+
+                        case 1:
+                          printf("Father was selected.\n\n");
+                          break;
+
+                        case 2:
+                          printf("Grandmother was selected.\n\n");
+                          break;
+
+                        case 3:
+                          printf("Grandfather was selected.\n\n");
+                          break;
+
+                        case 4:
+                          printf("Other was selected.\n\n");
+                          break;
+                        }
+
+                        printf("What is parent/guardian phone number? ('5555555555')\n"); //guardian phone num
+                        scanf("%s", p8gphone);
+
+                        printf("\nPress the digit that correpsonds with your parent/guardian phone number type.\n");
+                        printf("Home: 0\nWork: 1\nCell: 2\n\n");
+                        scanf("%u", & contact);
+                        switch (contact) {
+                        case 0:
+                          printf("Home was selected.\n\n");
+                          break;
+
+                        case 1:
+                          printf("Work was selected.\n\n");
+                          break;
+
+                        case 2:
+                          printf("Cell was selected.\n\n");
+                          break;
+                        }
+
+                        printf("What is the name of your city?\n"); //city
+                        scanf(" %[^\n]", p8c);
+
+                        printf("What is your street number?\n"); //street num
+                        scanf(" %[^\n]", p8snum);
+
+                        printf("What is your street name?\n"); //street name
+                        scanf(" %[^\n]", p8sname);
+
+                        printf("What year were you born?\n"); //year
+                        scanf("%hu", & p8y);
+                        Age(p8y);
+                        ++i;
+                      }
+                      case 9:
+                        printf("Continue adding players? Press '1'. To quit press '2'\n");
+                        scanf(" %d", & choice9);
+                        if (choice9 == 2) {
+                          i += 10;
+                          printf("You have quit the program.\n");
+                          break;
+                        } else if (choice9 == 1) {
+                          printf("What is your first name?\n"); //first name
+                          scanf("%s", p9f);
+
+                          printf("What is your last name?\n"); //last name
+                          scanf("%s", p9l);
+
+                          printf("What is your parent/guardians first name?\n"); //guardian first name
+                          scanf("%s", p9gf);
+
+                          printf("What is your parent/guardians last name?\n"); //guardian last name
+                          scanf("%s", p9gl);
+
+                          printf("Press the digit that corresponds with your parent/guardian:\n\n");
+                          printf("Mother: 0\nFather: 1\nGrandmother: 2\nGrandfather: 3\nOther: 4\n\n");
+                          scanf("%u", & guardian);
+
+                          switch (guardian) {
+                          case 0:
+                            printf("Mother was selected.\n\n");
+                            break;
+
+                          case 1:
+                            printf("Father was selected.\n\n");
+                            break;
+
+                          case 2:
+                            printf("Grandmother was selected.\n\n");
+                            break;
+
+                          case 3:
+                            printf("Grandfather was selected.\n\n");
+                            break;
+
+                          case 4:
+                            printf("Other was selected.\n\n");
+                            break;
+                          }
+
+                          printf("What is parent/guardian phone number? ('5555555555')\n"); //guardian phone num
+                          scanf("%s", p9gphone);
+
+                          printf("\nPress the digit that correpsonds with your parent/guardian phone number type.\n");
+                          printf("Home: 0\nWork: 1\nCell: 2\n\n");
+                          scanf("%u", & contact);
+                          switch (contact) {
+                          case 0:
+                            printf("Home was selected.\n\n");
+                            break;
+
+                          case 1:
+                            printf("Work was selected.\n\n");
+                            break;
+
+                          case 2:
+                            printf("Cell was selected.\n\n");
+                            break;
+                          }
+
+                          printf("What is the name of your city?\n"); //city
+                          scanf(" %[^\n]", p9c);
+
+                          printf("What is your street number?\n"); //street num
+                          scanf(" %[^\n]", p9snum);
+
+                          printf("What is your street name?\n"); //street name
+                          scanf(" %[^\n]", p9sname);
+
+                          printf("What year were you born?\n"); //year
+                          scanf("%hu", & p9y);
+                          Age(p9y);
+                          ++i;
+                        }
+                        case 10: // Max player case
+                          printf("Continue adding players? Press '1'. To quit press '2'\n");
+                          scanf(" %d", & choice10);
+                          if (choice10 == 2) {
+                            i += 10;
+                            printf("You have quit the program.\n");
+                            break;
+                          } else if (choice10 == 1) {
+                            if (i == 11) {
+                              printf("Maximum players for a team has been reached.\nProgram will quit now.");
+                              break;
+                            }
+                          }
+      }
+
+    } while (i < 10); //change this to a boolean, and when 2 is pressed we switch false
+
+  } while (i < 10);
+
+  return 0;
 }
