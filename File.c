@@ -6,7 +6,6 @@
 
 int main(){
     int count = 0;
-    char choice[BUFFER_SIZE];
     Player roster[MAX_PLAYERS];
     printf("\n --- Little League Roster --- \n");
     printf(" - Only 10 players per roster.\n - Players must be between the age 9 - 12.\n");
@@ -24,13 +23,17 @@ int main(){
 
         do{
             printf("Would you like to enter another player? 'Y' or 'N'\n");
-            scanf(" %c", choice);
+            scanf(" %[^\n]s", buffer);
             //getchar();
-            if(toupper(choice[0])== 'N' ||(toupper(choice[0])== 'Y')){
+            if(toupper(buffer[0])== 'N'){
                 break;
                 showRoster(roster, count, stdout);
             }
-        }while((toupper(choice[0]) != 'N')); //HERE 2
+            else if((toupper(buffer[0]) == 'Y')) {
+                break;
+            }
+            
+        }while((toupper(buffer[0]) != 'N')); //HERE 2
 
     }while(count != MAX_PLAYERS || (toupper(buffer[0]) == 'Y')); //HERE 1
 
