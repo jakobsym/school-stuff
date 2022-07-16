@@ -1,42 +1,48 @@
 #include <string.h>
 #include <ctype.h>
-
-
 #include "Player.h"
 
+#define ROSTER_FILE "roster.txt"
+
 int main(){
-    int count = 0;
+    int j,count,i = 0;
+    char choice[BUFFER_SIZE];
     Player roster[MAX_PLAYERS];
     printf("\n --- Little League Roster --- \n");
     printf(" - Only 10 players per roster.\n - Players must be between the age 9 - 12.\n");
-    /* printf("\nWould you like to load a previously created roster?\n");
-    scanf(" %[^\n]s", buffer); */
 
-    
-    //getchar();
-
-    do{
-        playerName(&roster[count]);
-        cityName(&roster[count]);
-        Age(&roster[count]);
-        ++count;
-
-        do{
-            printf("Would you like to enter another player? 'Y' or 'N'\n");
-            scanf(" %[^\n]s", buffer);
-            //getchar();
-            if(toupper(buffer[0])== 'N'){
-                break;
-                showRoster(roster, count, stdout);
+    printf("\nWould you like to load a previously created roster? 'Y' or 'N'\n");
+    scanf(" %[^\n]s", buffer);
+    if(toupper(buffer[0]) == 'Y'){
+        FILE* teamList = fopen(ROSTER_FILE, "r");
+        if(teamList != NULL) {
+            Player team[MAX_PLAYERS];
+            fscanf(teamList, "%d", &count);
+            for(;i < count; ++i){
+                fscanf(teamList, "%s %s %u", team[i].firstName, team[i].cityName, &team[i].birthYear);
             }
-            else if((toupper(buffer[0]) == 'Y')) {
-                break;
-            }
-            
-        }while((toupper(buffer[0]) != 'N')); //HERE 2
+            fclose(teamList);
+        }
+        else {
+            printf("The file \"%s\" is not available.\n", ROSTER_FILE);
+        }
+    } 
 
-    }while(count != MAX_PLAYERS || (toupper(buffer[0]) == 'Y')); //HERE 1
+    for(j= 0; j < MAX_PLAYERS; ++j){
+        printf("\nWould you like to add a player? 'Y' or 'N'\n");
+        scanf(" %[^\n]", &buffer[j]);
 
+        if(toupper(buffer[j])== 'Y'){
+            playerName(&roster[count]);
+            cityName(&roster[count]);
+            Age(&roster[count]);
+            ++count;
+        }
+        else {
+            break;
+        }
+    }
+   
     if(count == MAX_PLAYERS){
         printf("Maxmimum number of players per roster has been reached.\n");
     }
@@ -57,7 +63,7 @@ int main(){
     }while(1);
 
     if(toupper(buffer[0]) == 'Y'){
-        FILE* teamList = fopen("roster.txt", "w");
+        FILE* teamList = fopen(ROSTER_FILE, "w");
         if(teamList != NULL){
             showRoster(roster, count, teamList);
             fclose(teamList);
