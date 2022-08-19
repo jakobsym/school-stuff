@@ -4,6 +4,7 @@
     - Saves time as we can just find any node, and updates its pointers
 
  */
+
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -11,7 +12,6 @@ void insertAtHead(int n); // Will take an int as argument
 void insertAtTail(int n); // Will take an int as argument
 void printNodes();
 void revprintNodes();
-
 
 struct __NODE
 {
@@ -26,8 +26,6 @@ node *NewNode(int n);
 node *head = NULL; //global head variable
 int main(){
 
-
-
     insertAtTail(1);
     insertAtHead(2);
     //insertAtHead(3);
@@ -37,7 +35,6 @@ int main(){
 
     return 0;
 }
-
 
 void printNodes(){
     node* tmp = head;
@@ -80,7 +77,6 @@ void insertAtHead(int n){
     tmp->next = head; // tmp->prev is null, as this is head after function call
     head = tmp; // memory location of tmp, is now head
 }
-
 
 void insertAtTail(int n){
     node* newNode = NewNode(n);
